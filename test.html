@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flyout Block Test</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+	
+	<link rel='stylesheet' id='flyout-block' href='dist/flyout-block.min.css' type='text/css' media='all' />
+	<link rel='stylesheet' id='flyout-animations' href='dist/flyout-animations.min.css' type='text/css' media='all' />
+	<script type="text/javascript" src="dist/animate-helper.min.js"></script>
+	<script type="text/javascript" src="dist/flyout-block.min.js"></script>
+	
+	<script type="text/javascript">
+		var log = function( message ) {
+			var debugContainer = document.querySelector( '.debug-container' );
+			if ( debugContainer ) {
+				var newMessage = document.createElement( 'p' );
+				newMessage.innerText = message;
+				debugContainer.appendChild( newMessage );
+			}
+		}
+
+		var initFlyoutBlocks = function() {
+			if ( window.FlyoutBlock ) {
+				FlyoutBlock.init();
+				log( 'Flyout Blocks initialized.' );
+			}
+			else {
+				log( 'Flyout Block isn\'t loaded.' );
+			}
+		}
+
+		window.addEventListener( "DOMContentLoaded", function () { log( 'DOM Content loaded' ); } );
+		window.addEventListener( "DOMContentLoaded", function () { initFlyoutBlocks(); } );
+		window.addEventListener( "load", function () { log( 'Page loaded' ); } );
+	
+	</script>
+
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		hr {
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+
+		[data-flyout-content] {
+			background-color: #00c49a;
+		}
+
+		[data-flyout-close] {
+			margin: 10px;
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<hr/>
+
+	<h2>Flyout Block -- from bottom (default)</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-from-bottom]">Show</button>
+
+	<div data-flyout data-flyout-from-bottom>
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- modal (displays as a modal window on large screens)</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-with-modal]">Show</button>
+
+	<div data-flyout data-flyout-modal data-flyout-with-modal>
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- from top</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-from-top]">Show</button>
+
+	<div data-flyout data-flyout-from-top data-flyout-open-animation-class="slide-in-down" data-flyout-close-animation-class="slide-out-up">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- from left</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-from-left]">Show</button>
+
+	<div data-flyout data-flyout-from-left data-flyout-open-animation-class="slide-in-left" data-flyout-close-animation-class="slide-out-left">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- from right</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-from-right]">Show</button>
+
+	<div data-flyout data-flyout-from-right data-flyout-open-animation-class="slide-in-right" data-flyout-close-animation-class="slide-out-right">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- fade</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-fade]">Show</button>
+
+	<div data-flyout data-flyout-fade data-flyout-open-animation-class="fade-in" data-flyout-close-animation-class="fade-out">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- fade from bottom</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-fade-bottom]">Show</button>
+
+	<div data-flyout data-flyout-fade-bottom data-flyout-open-animation-class="fade-in-up" data-flyout-close-animation-class="fade-out-down">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- fade from top</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-fade-top]">Show</button>
+
+	<div data-flyout data-flyout-fade-top data-flyout-open-animation-class="fade-in-down" data-flyout-close-animation-class="fade-out-up">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- fade from left</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-fade-left]">Show</button>
+
+	<div data-flyout data-flyout-fade-left data-flyout-open-animation-class="fade-in-left" data-flyout-close-animation-class="fade-out-left">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- fade from right</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-fade-right]">Show</button>
+
+	<div data-flyout data-flyout-fade-right data-flyout-open-animation-class="fade-in-right" data-flyout-close-animation-class="fade-out-right">
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<div class="debug-container">
+	</div>
+
+</body>
+</html>

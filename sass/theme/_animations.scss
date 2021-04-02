@@ -1,0 +1,264 @@
+/*------------------------------------*\
+  #ANIMATIONS
+\*------------------------------------*/
+
+// SLIDE IN UP
+.slide-in-up { animation: slide-in-up $global-animation-duration $global-animation-easing; }
+@keyframes slide-in-up {
+	from {
+		transform: translate3d(0, 100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// SLIDE IN DOWN
+.slide-in-down { animation: slide-in-down $global-animation-duration $global-animation-easing; }
+@keyframes slide-in-down {
+	from {
+		transform: translate3d(0, -100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// SLIDE IN LEFT
+.slide-in-left { animation: slide-in-left $sliding-animation-easing $global-animation-duration-fast; }
+@keyframes slide-in-left {
+	from {
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// SLIDE IN RIGHT
+.slide-in-right { animation: slide-in-right $sliding-animation-easing $global-animation-duration-fast; }
+@keyframes slide-in-right {
+	from {
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+
+
+
+
+// SLIDE OUT UP
+.slide-out-up { animation: slide-out-up $global-animation-duration $global-animation-easing; }
+@keyframes slide-out-up {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		transform: translate3d(0, -100%, 0);
+	}
+}
+
+// SLIDE OUT DOWN
+.slide-out-down { animation: slide-out-down $global-animation-duration $global-animation-easing; }
+@keyframes slide-out-down {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		transform: translate3d(0, 100%, 0);
+	}
+}
+
+// SLIDE OUT LEFT
+.slide-out-left { animation: slide-out-left $global-animation-duration $global-animation-easing; }
+@keyframes slide-out-left {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+
+// SLIDE OUT RIGHT
+.slide-out-right { animation: slide-out-right $global-animation-duration $global-animation-easing; }
+@keyframes slide-out-right {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+
+
+
+
+// FADE IN
+.fade-in { animation: fade-in $global-animation-duration $global-animation-easing; }
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// FADE OUT
+.fade-out { animation: fade-out $global-animation-duration $global-animation-easing; }
+@keyframes fade-out {
+	from {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+
+
+
+
+// FADE IN UP
+.fade-in-up { animation: fade-in-up $global-animation-duration $global-animation-easing; }
+@keyframes fade-in-up {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 10%, 0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// FADE IN DOWN
+.fade-in-down { animation: fade-in-down $global-animation-duration $global-animation-easing; }
+@keyframes fade-in-down {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -10%, 0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// FADE IN LEFT
+.fade-in-left { animation: fade-in-left $global-animation-duration $global-animation-easing; }
+@keyframes fade-in-left {
+	from {
+		opacity: 0;
+		transform: translate3d(-10%, 0, 0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+// FADE IN RIGHT
+.fade-in-right { animation: fade-in-right $global-animation-duration $global-animation-easing;; }
+@keyframes fade-in-right {
+	from {
+		opacity: 0;
+		transform: translate3d(10%, 0, 0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+
+
+
+// FADE OUT UP
+.fade-out-up { animation: fade-out-up $global-animation-duration $global-animation-easing; }
+@keyframes fade-out-up {
+	from {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	
+	to {
+		opacity: 0;
+		transform: translate3d(0, -10%, 0);
+	}
+}
+
+// FADE OUT DOWN
+.fade-out-down { animation: fade-out-down $global-animation-duration $global-animation-easing; }
+@keyframes fade-out-down {
+	from {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	
+	to {
+		opacity: 0;
+		transform: translate3d(0, -10%, 0);
+	}
+}
+
+// FADE OUT LEFT
+.fade-out-left { animation: fade-out-left $global-animation-duration $global-animation-easing; }
+@keyframes fade-out-left {
+	from {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	
+	to {
+		opacity: 0;
+		transform: translate3d(-10%, 0, 0);
+	}
+}
+
+// FADE OUT RIGHT
+.fade-out-right { animation: fade-out-right $global-animation-duration $global-animation-easing;; }
+@keyframes fade-out-right {
+	from {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	
+	to {
+		opacity: 0;
+		transform: translate3d(10%, 0, 0);
+	}
+}
