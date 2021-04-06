@@ -37,7 +37,6 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
-    "animate-helper": "^1.0.0",
-    "hammerjs": "^2.0.8"
+    "animate-helper": "^1.0.0"
   }
 }
