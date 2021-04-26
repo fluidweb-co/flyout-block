@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added: Support to release `disabled` and `aria-hidden` on trigger elements at initialization.
 - Added: Set focus back to the element that had the focus previously to opening the flyout block.
 
+### Fixed
+
+- Fixed: Only set flyout styles after initializing the script and setting the a class to the `body` element.
+
 ### Removed
 
 - Removed: unnecessary dependency `hammerjs`.
