@@ -54,6 +54,18 @@
 			margin: 10px;
 		}
 
+		.form {
+			margin: 0 10px;
+		}
+
+		.form input {
+			margin: 10px 0;
+		}
+		
+		.form input[type="text"] {
+			width: 300px;
+		}
+
 	</style>
 
 </head>
@@ -109,7 +121,7 @@
 
 	<hr/>
 
-	<h2>Flyout Block -- modal (trigger initially disabled)</h2>
+	<h2>Flyout Block -- modal (trigger initially disabled, focus on first focusable field)</h2>
 
 	<button data-flyout-toggle data-flyout-target="[data-flyout-modal-2]" disabled aria-hidden="true">Initialy Disabled</button>
 
@@ -118,6 +130,15 @@
 
 			<button data-flyout-close>Close</button>
 
+			The first focusable field should get focused.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" /><br>
+			</div>
+
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -133,15 +154,24 @@
 
 	<hr/>
 
-	<h2>Flyout Block -- modal (trigger initially disabled)</h2>
+	<h2>Flyout Block -- modal (manual focus)</h2>
 
 	<a href="#open-modal" data-flyout-toggle data-flyout-target="[data-flyout-modal-3]" disabled aria-hidden="true">Link trigger</a>
 	<a href="#modal-3" data-flyout-toggle disabled aria-hidden="true">Link trigger (href)</a>
 
-	<div id="modal-3" data-flyout data-flyout-modal data-flyout-modal-3 data-flyout-role="alert" hidden>
+	<div id="modal-3" data-flyout data-flyout-modal data-flyout-modal-3 data-flyout-role="alert" data-flyout-manual-focus hidden>
 		<div data-flyout-content>
 
 			<a href="#close-modal" data-flyout-close>Close</a>
+
+			No focus should be set in this flyout block.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" /><br>
+			</div>
 
 			<nav>
 				<ul>
@@ -158,7 +188,7 @@
 
 	<hr/>
 
-	<h2>Flyout Block -- from top</h2>
+	<h2>Flyout Block -- from top (auto focus on second field)</h2>
 
 	<button data-flyout-toggle data-flyout-target="[data-flyout-from-top]">Show</button>
 
@@ -166,6 +196,15 @@
 		<div data-flyout-content>
 
 			<button data-flyout-close>Close</button>
+
+			The second focusable field should get focus, as it has the attribute `data-autofocus`.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" data-autofocus /><br>
+			</div>
 
 			<nav>
 				<ul>

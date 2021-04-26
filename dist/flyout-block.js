@@ -22,7 +22,7 @@
 	var _settings = { };
 	var _defaults = {
 		flyoutWrapperSelector: '[data-flyout]',
-		flyoutElementSelector: '[data-flyout-content]',
+		flyoutContentSelector: '[data-flyout-content]',
 		toggleButtonSelector: '[data-flyout-toggle]',
 		openButtonSelector: '[data-flyout-open]',
 		closeButtonSelector: '[data-flyout-close]',
@@ -44,7 +44,9 @@
 		targetElementAttribute: 'data-flyout-target',
 		openAnimationClassAttribute: 'data-flyout-open-animation-class',
 		closeAnimationClassAttribute: 'data-flyout-close-animation-class',
-
+		manualFocusAttribute: 'data-flyout-manual-focus',
+		autoFocusAttribute: 'data-autofocus',
+		
 		flyoutRoleAttribute: 'data-flyout-role',
 
 		overlayTemplate: '<div class="flyout-overlay" data-flyout-overlay></div>',
@@ -97,6 +99,27 @@
 
 		return extended;
 	};
+
+
+	/**
+	 * Gets keyboard-focusable elements within a specified element
+	 *
+	 * @param   HTMLElement  element  The element to search within. Defaults to the `document` root element.
+	 *
+	 * @return  array                 All focusable elements withing the element passed.
+	 */
+	var getFocusableElements = function( element ) {
+		// Set element to `document` root if not passed in
+		if ( ! element ) { element = document; }
+		
+		// Get elements that are keyboard-focusable, but might be `disabled`
+		var maybeFocusableElements = element.querySelectorAll( 'a, button, input:not([type="hidden"]), textarea, select, details,[tabindex]:not([tabindex="-1"])' );
+		
+		// Filter disabled elements and return
+		return Array.from( maybeFocusableElements ).filter( function( maybeFocusable ) {
+			return ! maybeFocusable.hasAttribute( 'disabled' );
+		} );
+	}
 
 
 
@@ -239,6 +262,30 @@
 			// Set classes
 			manager.element.classList.add( manager.settings.isOpenClass );
 			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass,manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+
+			// Maybe set focus to the first focusable element in the flyout content, filter out the close button
+			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
+				var autofocusField = manager.element.querySelector( '[' + manager.settings.autoFocusAttribute + ']' );
+
+				console.log( autofocusField );
+
+				// Maybe get first focusable field
+				if ( ! autofocusField ) {
+					var focusableElements = getFocusableElements( manager.element ).filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
+					if ( focusableElements.length > 0 ) {
+						autofocusField = focusableElements[0];
+					}
+				}
+
+				// Maybe set focus to the field
+				if ( autofocusField ) {
+					autofocusField.focus();
+				}
+				// Otherwise set focus to the flyout content
+				else {
+					manager.contentElement.focus();
+				}
+			}
 		} );
 	}
 
@@ -386,6 +433,9 @@
 		if ( ! manager.element.id || manager.element.id == '' ) {
 			manager.element.id = manager.settings.idPrefix + '-' + _publicMethods.managers.length;
 		}
+
+		// Get the content element
+		manager.contentElement = manager.element.querySelector( manager.settings.flyoutContentSelector );
 		
 		// Try get open/close animation classes from attributes
 		var openAnimationAttrValue = manager.element.getAttribute( manager.settings.openAnimationClassAttribute );
@@ -393,9 +443,9 @@
 		manager.settings.openAnimationClass = openAnimationAttrValue && openAnimationAttrValue != '' ? openAnimationAttrValue : _settings.openAnimationClass;
 		manager.settings.closeAnimationClass = closeAnimationAttrValue && closeAnimationAttrValue != '' ? closeAnimationAttrValue : _settings.closeAnimationClass;
 
-		// Set flyout `role` attribute from data attributes
+		// Set flyout content `role` attribute from data attributes
 		var roleAttrValue = manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alert' || manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alertdialog' ? 'alertdialog' : 'dialog';
-		manager.element.setAttribute( 'role', roleAttrValue );
+		manager.contentElement.setAttribute( 'role', roleAttrValue );
 		
 		// Set element as activated
 		manager.isActivated = true;
