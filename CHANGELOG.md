@@ -8,8 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added: Support to target flyout blocks using the `href` of a link attribute.
+- Added: Set trigger elements `role` to `button`.
 - Added: Support to release `disabled` and `aria-hidden` on trigger elements at initialization.
-- Added: Set focus back to the element that had the focus previously to opening the modal.
+- Added: Set focus back to the element that had the focus previously to opening the flyout block.
 
 ### Removed
 

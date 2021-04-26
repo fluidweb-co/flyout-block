@@ -329,11 +329,35 @@
 
 
 	/**
-	 * Initialize an trigger elements.
+	 * Initialize a trigger elements.
 	 */
 	 _publicMethods.initializeTrigger = function( trigger ) {
+		// Enable the trigger element
 		trigger.removeAttribute( 'disabled' );
 		trigger.removeAttribute( 'aria-hidden' );
+		
+		// Add the element to the natural tab order
+		trigger.setAttribute( 'tabindex', '0' );
+
+		// Set trigger role to `button`
+		trigger.setAttribute( 'role', 'button' );
+
+		// Maybe remove the `href` attribute to avoid right-click to open link on new tab
+		var triggerHref = trigger.getAttribute( 'href' );
+		if ( triggerHref != undefined && triggerHref != '' ) {
+			
+			// Move selector to the target attribute
+			var targetElement = document.querySelector( triggerHref )
+			if ( targetElement ) {
+				trigger.setAttribute( _settings.targetElementAttribute, triggerHref );
+			}
+
+			// Only remove the `href` attribute if the element has a target
+			if ( trigger.getAttribute( _settings.targetElementAttribute ) ) {
+				trigger.removeAttribute( 'href' );
+			}
+
+		}
 	}
 	
 
