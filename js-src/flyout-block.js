@@ -230,10 +230,13 @@
 			// Set manager state
 			manager.state = _states.OPEN;
 
+			// Maybe save `hidden` attribute on the flyout element
+			manager.wasHidden = manager.element.hasAttribute( 'hidden' );
+			manager.element.removeAttribute( 'hidden' );
+
 			// Set classes
 			manager.element.classList.add( manager.settings.isOpenClass );
-			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass );
-			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass,manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
 		} );
 	}
 
@@ -248,13 +251,19 @@
 		if ( ! manager ) return false;
 
 		// Play closing animation then set element closed
-		AnimateHelper.doThenAnimate( element, manager.settings.closeAnimationClass, function() {
+		AnimateHelper.animateThenDo( element, manager.settings.closeAnimationClass, function() {
 			// Set manager state
 			manager.state = _states.CLOSED;
 
 			// Remove classes
 			manager.element.classList.remove( manager.settings.isOpenClass );
 			document.body.classList.remove( manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+
+			// Maybe set `hidden` attribute again
+			if ( manager.wasHidden ) {
+				manager.element.setAttribute( 'hidden', '' );
+			}
+			manager.element.wasHidden = undefined;
 
 			// Maybe remove body class for open elements
 			if ( ! _publicMethods.hasAnyElementOpen() ) {
