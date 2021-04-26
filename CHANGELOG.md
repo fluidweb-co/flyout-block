@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added: Set focus back to the element that had the focus previously to opening the modal
+
 ### Removed
 
-- Remove unnecessary dependency `hammerjs`
+- Removed: unnecessary dependency `hammerjs`
 
 ## [1.0.0] - 2021-04-02
 

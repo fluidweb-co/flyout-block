@@ -252,6 +252,9 @@
 		// Bail if manager invalid
 		if ( ! manager ) return false;
 
+		// Save element with focus
+		manager.previousActiveElement = document.activeElement;
+
 		// Set element open then play openning animation
 		AnimateHelper.doThenAnimate( element, manager.settings.openAnimationClass, function() {
 			// Set manager state
@@ -286,6 +289,11 @@
 			// Maybe remove body class for open elements
 			if ( ! _publicMethods.hasAnyElementOpen() ) {
 				document.body.classList.remove( manager.settings.bodyHasFlyoutOpenClass );
+			}
+
+			// Set focus back to the element previously with focus
+			if ( manager.previousActiveElement ) {
+				manager.previousActiveElement.focus();
 			}
 		} );
 	}
