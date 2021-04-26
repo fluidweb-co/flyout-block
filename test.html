@@ -87,9 +87,33 @@
 
 	<h2>Flyout Block -- modal (displays as a modal window on large screens)</h2>
 
-	<button data-flyout-toggle data-flyout-target="[data-flyout-with-modal]">Show</button>
+	<button data-flyout-toggle data-flyout-target="[data-flyout-modal-1]">Show</button>
 
-	<div data-flyout data-flyout-modal data-flyout-with-modal>
+	<div data-flyout data-flyout-modal data-flyout-modal-1>
+		<div data-flyout-content>
+
+			<button data-flyout-close>Close</button>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- modal (trigger initially disabled)</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-modal-2]" disabled aria-hidden="true">Initialy Disabled</button>
+
+	<div data-flyout data-flyout-modal data-flyout-modal-2>
 		<div data-flyout-content>
 
 			<button data-flyout-close>Close</button>

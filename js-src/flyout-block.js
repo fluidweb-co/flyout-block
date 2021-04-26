@@ -198,36 +198,6 @@
 			_publicMethods.closeAll();
 		}
 	};
-	
-
-
-	/**
-	 * Finish Initialize
-	 */
-	var finishInit = function( options ) {
-		// Merge with general settings with options
-		_settings = extend( _defaults, options );
-
-		// Iterate elements
-		var elements = document.querySelectorAll( _settings.flyoutWrapperSelector );
-		for ( var i = 0; i < elements.length; i++ ) {
-			_publicMethods.initializeElement( elements[ i ] );
-		}
-
-		// Add flyout overlay
-		var overlayElement = document.createElement('div');
-		overlayElement.innerHTML = _settings.overlayTemplate.trim();
-		document.body.appendChild( overlayElement.childNodes[0] );
-
-		// Add event listeners
-		document.addEventListener( 'click', handleClick );
-		document.addEventListener( 'keydown', handleKeyDown, true );
-		
-		// Add body class
-		document.body.classList.add( _settings.bodyHasFlyoutClass );
-
-		_hasInitialized = true;
-	}
 
 
 
@@ -355,6 +325,16 @@
 		
 		return false;
 	}
+
+
+
+	/**
+	 * Initialize an trigger elements.
+	 */
+	 _publicMethods.initializeTrigger = function( trigger ) {
+		trigger.removeAttribute( 'disabled' );
+		trigger.removeAttribute( 'aria-hidden' );
+	}
 	
 
 
@@ -386,10 +366,47 @@
 		_publicMethods.managers.push( manager );
 	}
 
+
+
+	/**
+	 * Finish Initialize
+	 */
+	 var finishInit = function( options ) {
+		// Merge with general settings with options
+		_settings = extend( _defaults, options );
+
+		// Iterate elements
+		var elements = document.querySelectorAll( _settings.flyoutWrapperSelector );
+		for ( var i = 0; i < elements.length; i++ ) {
+			_publicMethods.initializeElement( elements[ i ] );
+		}
+
+		// Iterate trigger elements
+		var triggerSelectors = _settings.toggleButtonSelector + ', ' + _settings.openButtonSelector + ', ' + _settings.closeButtonSelector;
+		var triggers = document.querySelectorAll( triggerSelectors );
+		for ( var i = 0; i < triggers.length; i++ ) {
+			_publicMethods.initializeTrigger( triggers[ i ] );
+		}
+
+		// Add flyout overlay
+		var overlayElement = document.createElement('div');
+		overlayElement.innerHTML = _settings.overlayTemplate.trim();
+		document.body.appendChild( overlayElement.childNodes[0] );
+
+		// Add event listeners
+		document.addEventListener( 'click', handleClick );
+		document.addEventListener( 'keydown', handleKeyDown, true );
+		
+		// Add body class
+		document.body.classList.add( _settings.bodyHasFlyoutClass );
+
+		_hasInitialized = true;
+	}
+
 	
 
 	/**
-	 * Initialize Script
+	 * Initialize Script.
 	 */
 	_publicMethods.init = function( options ) {
 		if ( _hasInitialized ) return;
