@@ -45,6 +45,8 @@
 		openAnimationClassAttribute: 'data-flyout-open-animation-class',
 		closeAnimationClassAttribute: 'data-flyout-close-animation-class',
 
+		flyoutRoleAttribute: 'data-flyout-role',
+
 		overlayTemplate: '<div class="flyout-overlay" data-flyout-overlay></div>',
 	};
 	var _states = {
@@ -390,6 +392,10 @@
 		var closeAnimationAttrValue = manager.element.getAttribute( manager.settings.closeAnimationClassAttribute );
 		manager.settings.openAnimationClass = openAnimationAttrValue && openAnimationAttrValue != '' ? openAnimationAttrValue : _settings.openAnimationClass;
 		manager.settings.closeAnimationClass = closeAnimationAttrValue && closeAnimationAttrValue != '' ? closeAnimationAttrValue : _settings.closeAnimationClass;
+
+		// Set flyout `role` attribute from data attributes
+		var roleAttrValue = manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alert' || manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alertdialog' ? 'alertdialog' : 'dialog';
+		manager.element.setAttribute( 'role', roleAttrValue );
 		
 		// Set element as activated
 		manager.isActivated = true;
