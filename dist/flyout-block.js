@@ -307,6 +307,27 @@
 
 
 	/**
+	 * Set the `inert` property of the sibling elements.
+	 *
+	 * @param   HTMLElement  element  The element which to maintain the focus in, all siblings will marked with the value of the param `inert` except this one.
+	 * @param   bool         inert    Boolean value to set to the `inert` property, `true` will make siblings inert, `false` will release the siblings.
+	 */
+	var setSiblingsInert = function( element, inert ) {
+		// Release all elements in case of an invalid value for the `inert` param.
+		if ( typeof inert !== 'boolean' ) { inert = false; }
+
+		// Make all other elements `inert`
+		var siblings = element.parentNode ? element.parentNode.childNodes : null;
+		if ( siblings ) {
+			Array.from( siblings ).forEach( function( child ) {
+				if ( child != element ) { child.inert = inert; }
+			} );
+		}
+	}
+
+
+
+	/**
 	 * Get current state of element
 	 */
 	_publicMethods.getState = function ( element ) {
@@ -347,8 +368,6 @@
 			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
 				var autofocusField = manager.element.querySelector( '[' + manager.settings.autoFocusAttribute + ']' );
 
-				console.log( autofocusField );
-
 				// Maybe get first focusable field
 				if ( ! autofocusField ) {
 					var focusableElements = getFocusableElements( manager.element ).filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
@@ -366,6 +385,9 @@
 					manager.contentElement.focus();
 				}
 			}
+
+			// Make all other elements `inert`
+			setSiblingsInert( manager.element, true );
 		} );
 	}
 
@@ -398,6 +420,9 @@
 			if ( ! _publicMethods.hasAnyElementOpen() ) {
 				document.body.classList.remove( manager.settings.bodyHasFlyoutOpenClass );
 			}
+
+			// Release all other elements, set `inert` to false
+			setSiblingsInert( manager.element, false );
 
 			// Set focus back to the element previously with focus
 			if ( manager.previousActiveElement ) {
