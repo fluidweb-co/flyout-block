@@ -59,6 +59,7 @@ gulp.task( 'build-css', gulp.series( function( done ) {
 gulp.task( 'build-js', gulp.series( function( done ) {
 	gulp.src([
 		settings.nodePath + 'animate-helper/dist/animate-helper.js',
+		settings.nodePath + 'wicg-inert/dist/inert.js',
 		settings.jsPath + '*.js',
 	])
 	.pipe(sourcemaps.init())

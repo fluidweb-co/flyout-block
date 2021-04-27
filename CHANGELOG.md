@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added: Add `inert` polyfill, see more information at the [Inert polyfill repository](https://github.com/WICG/inert).
 - Added: Set focus to the first focusable element in the flyout content by default, or to the element marked as `data-autofocus` if focusabled, and allow developers to define a manual focus mode with `data-flyout-manual-focus`, otherwise focus on the flyout content.
 - Added: Add attribute `role` to the flyout block element to `dialog` or `alertdialog` with support to set the value via `data-flyout-role`.
 - Added: Add support to the attribute `hidden` on flyout block elements to hide content for when JavaScript and CSS is unavailable.

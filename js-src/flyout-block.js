@@ -582,12 +582,12 @@
 	_publicMethods.init = function( options ) {
 		if ( _hasInitialized ) return;
 
-		// Finish initialization, maybe load dependencies first
-		if ( window.AnimateHelper ) {
+		// Finish initialization, maybe load dependencies first (AnimateHelper, and Inert Polyfill)
+		if ( window.AnimateHelper && Element.prototype.hasOwnProperty( 'inert' ) ) {
 			finishInit( options );
 		}
 		else if( window.RequireBundle ) {
-			RequireBundle.require( [ 'animate-helper' ], function() { finishInit( options ); } );
+			RequireBundle.require( [ 'animate-helper', 'inert' ], function() { finishInit( options ); } );
 		}
 	};
 

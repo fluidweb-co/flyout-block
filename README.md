@@ -10,7 +10,7 @@ Lightweight modal and flyout block component library.
 
 ## Installation
 
-Setting up is pretty straight-forward. Download the js and css files from __dist__ folder and include them in your HTML, you'll also need the library [AnimateHelper](https://github.com/fluidweb-co/animate-helper).
+Setting up is pretty straight-forward. Download the js and css files from __dist__ folder and include them in your HTML, you'll also need the library [AnimateHelper](https://github.com/fluidweb-co/animate-helper), and the [Inert Polyfill](https://github.com/WICG/inert), both provided in the `dist` folder for your convenience.
 
 
 ```html
@@ -18,10 +18,12 @@ Setting up is pretty straight-forward. Download the js and css files from __dist
     <link rel='stylesheet' id='flyout-animations' href='path/to/dist/flyout-animations.min.css' type='text/css' media='all' />
 
     <script type="text/javascript" src="path/to/dist/animate-helper.min.js"></script>
+    <script type="text/javascript" src="path/to/dist/inert.min.js"></script>
     <script type="text/javascript" src="path/to/dist/flyout-block.min.js"></script>
 ```
 
-If you plan to use your own css animations you can skip loading the styles `flyout-animations.min.css`.
+Remember to change the `path/to/dist/` to the actual path in your project.
+If you plan to use your own css animations you can skip loading the styles `flyout-animations.min.css`, if no animation is provided the flyout scripts will still work as intended without animations ;)
 
 
 ### NPM
