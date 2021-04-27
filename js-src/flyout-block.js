@@ -58,6 +58,73 @@
 
 
 
+	/**
+	 * Keyboard key mappings.
+	 */
+	 var _key = {
+		TAB: 'Tab',
+		ENTER: 'Enter',
+		ESC: 'Escape',
+		SPACE: ' ',
+		END: 'End',
+		HOME: 'Home',
+		ARROW_LEFT: 'ArrowLeft',
+		ARROW_UP: 'ArrowUp',
+		ARROW_RIGHT: 'ArrowRight',
+		ARROW_DOWN: 'ArrowDown',
+	}
+	var _keyMap = {
+		'Tab': _key.TAB,
+		'Enter': _key.ENTER,
+		'Return': _key.ENTER,
+		'Escape': _key.ESC,
+		'Esc': _key.ESC,
+		' ': _key.SPACE,
+		'Spacebar': _key.SPACE,
+		'End': _key.END,
+		'Home': _key.HOME,
+		'ArrowLeft': _key.ARROW_LEFT,
+		'Left': _key.ARROW_LEFT,
+		'ArrowUp': _key.ARROW_UP,
+		'Up': _key.ARROW_UP,
+		'ArrowRight': _key.ARROW_RIGHT,
+		'Right': _key.ARROW_RIGHT,
+		'ArrowDown': _key.ARROW_DOWN,
+		'Down': _key.ARROW_DOWN,
+	};
+	var _keyCodeMap = {
+		9: 'Tab',
+		13: 'Enter',
+		27: 'Escape',
+		32: ' ',
+		35: 'End',
+		36: 'Home',
+		37: 'ArrowLeft',
+		38: 'ArrowUp',
+		39: 'ArrowRight',
+		40: 'ArrowDown',
+	}
+
+	var getKey = function( e ) {
+		var keycode;
+
+		if ( e.key !== undefined ) {
+			var mappedKey = _keyMap[ e.key ];
+			keycode = mappedKey !== undefined ? mappedKey : e.key;
+		} else if ( e.keyCode !== undefined ) {
+			var mappedKey = _keyMap[ _keyCodeMap[ e.keyCode ] ];
+			keycode = mappedKey !== undefined ? mappedKey : e.keyCode;
+		}
+
+		return keycode;
+	}
+
+	/**
+	 * END - Keyboard key mappings.
+	 */
+
+
+
 	/*!
 	* Merge two or more objects together.
 	* (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
@@ -218,9 +285,22 @@
 	/**
 	 * Handle keypress event.
 	 */
-	var handleKeyDown = function(e) {
-		if ( e.keyCode == 27 || e.which == 27 || e.key == 'Escape' || e.key == 'Esc' ) {
+	var handleKeyDown = function( e ) {
+		// Should do nothing if the default action has been cancelled
+		if ( e.defaultPrevented ) { return; }
+
+		// Get the pressed key name
+		var key = getKey( e );
+
+		// Close all flyout blocks if `ESC` was pressed
+		if ( key == _key.ESC ) {
 			_publicMethods.closeAll();
+		}
+
+		// ENTER on flyout trigger
+		if ( ( key == _key.ENTER || key == _key.SPACE ) && e.target.closest( _settings.triggerSelectors ) ) {
+			// Similate click
+			handleClick( e );
 		}
 	};
 
@@ -464,6 +544,9 @@
 		// Merge with general settings with options
 		_settings = extend( _defaults, options );
 
+		// Set dynamic settings value
+		_settings.triggerSelectors = _settings.toggleButtonSelector + ', ' + _settings.openButtonSelector + ', ' + _settings.closeButtonSelector;
+
 		// Iterate elements
 		var elements = document.querySelectorAll( _settings.flyoutWrapperSelector );
 		for ( var i = 0; i < elements.length; i++ ) {
@@ -471,8 +554,7 @@
 		}
 
 		// Iterate trigger elements
-		var triggerSelectors = _settings.toggleButtonSelector + ', ' + _settings.openButtonSelector + ', ' + _settings.closeButtonSelector;
-		var triggers = document.querySelectorAll( triggerSelectors );
+		var triggers = document.querySelectorAll( _settings.triggerSelectors );
 		for ( var i = 0; i < triggers.length; i++ ) {
 			_publicMethods.initializeTrigger( triggers[ i ] );
 		}
