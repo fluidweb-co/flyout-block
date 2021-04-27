@@ -132,6 +132,10 @@ In the example below, we use the attribute `data-flyout-mobile-menu` to identify
 </div>
 ```
 
+IMPORTANT: It is recommended that all flyout-blocks are placed directly in the `<body>` element to ensure that only the elements inside the flyout-block are focusabled during the time it is being displayed, this will prevent users using keyboard-only or assistive technologies from leaving the flyout-block without closing it, this is the expected behavior as leaving focusing and navigating other elements that are not currently being displayed will degrade the user experience. For that reason, the flyout script will set all sibling elements as `inert`.
+
+[Read the `inert` specs](https://whatpr.org/html/4288/interaction.html#the-inert-attribute)
+
 ### 2. Using flyout blocks as modals
 
 To use flyout blocks as a modal window, set the attribute `data-flyout-modal` to the flyout block element, the same element that contains the attribute `data-flyout`.
