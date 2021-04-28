@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added: Support for keyboard events on non-button trigger elements.
 - Added: Make all siblings of the flyout blocks as `inert` during the time it is open. Letting users focus only on elements inside the currently displayed flyout block.
 - Added: Add `inert` polyfill, see more information at the [Inert polyfill repository](https://github.com/WICG/inert).
 - Added: Set focus to the first focusable element in the flyout content by default, or to the element marked as `data-autofocus` if focusabled, and allow developers to define a manual focus mode with `data-flyout-manual-focus`, otherwise focus on the flyout content.

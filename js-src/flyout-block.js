@@ -46,6 +46,7 @@
 		closeAnimationClassAttribute: 'data-flyout-close-animation-class',
 		manualFocusAttribute: 'data-flyout-manual-focus',
 		autoFocusAttribute: 'data-autofocus',
+		focusableElementsSelector: 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), details, summary, iframe, object, embed, [contenteditable] [tabindex]:not([tabindex="-1"])',
 		
 		flyoutRoleAttribute: 'data-flyout-role',
 
@@ -55,73 +56,12 @@
 		OPEN: 'open',
 		CLOSED: 'closed',
 	}
-
-
-
-	/**
-	 * Keyboard key mappings.
-	 */
-	 var _key = {
+	var _key = {
 		TAB: 'Tab',
 		ENTER: 'Enter',
 		ESC: 'Escape',
 		SPACE: ' ',
-		END: 'End',
-		HOME: 'Home',
-		ARROW_LEFT: 'ArrowLeft',
-		ARROW_UP: 'ArrowUp',
-		ARROW_RIGHT: 'ArrowRight',
-		ARROW_DOWN: 'ArrowDown',
 	}
-	var _keyMap = {
-		'Tab': _key.TAB,
-		'Enter': _key.ENTER,
-		'Return': _key.ENTER,
-		'Escape': _key.ESC,
-		'Esc': _key.ESC,
-		' ': _key.SPACE,
-		'Spacebar': _key.SPACE,
-		'End': _key.END,
-		'Home': _key.HOME,
-		'ArrowLeft': _key.ARROW_LEFT,
-		'Left': _key.ARROW_LEFT,
-		'ArrowUp': _key.ARROW_UP,
-		'Up': _key.ARROW_UP,
-		'ArrowRight': _key.ARROW_RIGHT,
-		'Right': _key.ARROW_RIGHT,
-		'ArrowDown': _key.ARROW_DOWN,
-		'Down': _key.ARROW_DOWN,
-	};
-	var _keyCodeMap = {
-		9: 'Tab',
-		13: 'Enter',
-		27: 'Escape',
-		32: ' ',
-		35: 'End',
-		36: 'Home',
-		37: 'ArrowLeft',
-		38: 'ArrowUp',
-		39: 'ArrowRight',
-		40: 'ArrowDown',
-	}
-
-	var getKey = function( e ) {
-		var keycode;
-
-		if ( e.key !== undefined ) {
-			var mappedKey = _keyMap[ e.key ];
-			keycode = mappedKey !== undefined ? mappedKey : e.key;
-		} else if ( e.keyCode !== undefined ) {
-			var mappedKey = _keyMap[ _keyCodeMap[ e.keyCode ] ];
-			keycode = mappedKey !== undefined ? mappedKey : e.keyCode;
-		}
-
-		return keycode;
-	}
-
-	/**
-	 * END - Keyboard key mappings.
-	 */
 
 
 
@@ -173,19 +113,14 @@
 	 *
 	 * @param   HTMLElement  element  The element to search within. Defaults to the `document` root element.
 	 *
-	 * @return  array                 All focusable elements withing the element passed.
+	 * @return  NodeList              All focusable elements withing the element passed in.
 	 */
 	var getFocusableElements = function( element ) {
 		// Set element to `document` root if not passed in
 		if ( ! element ) { element = document; }
 		
 		// Get elements that are keyboard-focusable, but might be `disabled`
-		var maybeFocusableElements = element.querySelectorAll( 'a, button, input:not([type="hidden"]), textarea, select, details,[tabindex]:not([tabindex="-1"])' );
-		
-		// Filter disabled elements and return
-		return Array.from( maybeFocusableElements ).filter( function( maybeFocusable ) {
-			return ! maybeFocusable.hasAttribute( 'disabled' );
-		} );
+		return element.querySelectorAll( _settings.focusableElementsSelector );
 	}
 
 
@@ -289,16 +224,13 @@
 		// Should do nothing if the default action has been cancelled
 		if ( e.defaultPrevented ) { return; }
 
-		// Get the pressed key name
-		var key = getKey( e );
-
 		// Close all flyout blocks if `ESC` was pressed
-		if ( key == _key.ESC ) {
+		if ( e.key == _key.ESC ) {
 			_publicMethods.closeAll();
 		}
 
 		// ENTER on flyout trigger
-		if ( ( key == _key.ENTER || key == _key.SPACE ) && e.target.closest( _settings.triggerSelectors ) ) {
+		if ( ( e.key == _key.ENTER || e.key == _key.SPACE ) && e.target.closest( _settings.triggerSelectors ) ) {
 			// Similate click
 			handleClick( e );
 		}
@@ -370,7 +302,8 @@
 
 				// Maybe get first focusable field
 				if ( ! autofocusField ) {
-					var focusableElements = getFocusableElements( manager.element ).filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
+					var focusableElements = Array.from( getFocusableElements( manager.element ) );
+					focusableElements = focusableElements.filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
 					if ( focusableElements.length > 0 ) {
 						autofocusField = focusableElements[0];
 					}
