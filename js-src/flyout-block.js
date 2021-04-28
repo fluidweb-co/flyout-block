@@ -577,7 +577,7 @@
 			finishInit( options );
 		}
 		else if( window.RequireBundle ) {
-			RequireBundle.require( [ 'animate-helper', 'inert' ], function() { finishInit( options ); } );
+			RequireBundle.require( [ 'animate-helper', 'polyfill-inert' ], function() { finishInit( options ); } );
 		}
 	};
 
