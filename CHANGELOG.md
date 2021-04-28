@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added: Support for flyout block accessible description generated from an element marked with `data-flyout-description`.
+- Added: Support for flyout block accessible name generated from the first found heading element.
 - Added: Support for keyboard events on non-button trigger elements.
 - Added: Make all siblings of the flyout blocks as `inert` during the time it is open. Letting users focus only on elements inside the currently displayed flyout block.
 - Added: Add `inert` polyfill, see more information at the [Inert polyfill repository](https://github.com/WICG/inert).

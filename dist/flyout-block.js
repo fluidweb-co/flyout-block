@@ -33,6 +33,7 @@
 		flyoutClassTogglePrefix: 'js-flyout-target-',
 		
 		idPrefix: 'flyout-block',
+		headingsSelector: 'h1, h2, h3, h4, h5, h6, [role="heading"]',
 		
 		bodyHasFlyoutClass: 'has-flyout',
 		bodyHasFlyoutOpenClass: 'has-flyout--open',
@@ -45,6 +46,7 @@
 		openAnimationClassAttribute: 'data-flyout-open-animation-class',
 		closeAnimationClassAttribute: 'data-flyout-close-animation-class',
 		manualFocusAttribute: 'data-flyout-manual-focus',
+		descriptionAttribute: 'data-flyout-description',
 		autoFocusAttribute: 'data-autofocus',
 		focusableElementsSelector: 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), details, summary, iframe, object, embed, [contenteditable] [tabindex]:not([tabindex="-1"])',
 		
@@ -474,6 +476,9 @@
 
 		// Get the content element
 		manager.contentElement = manager.element.querySelector( manager.settings.flyoutContentSelector );
+
+		// Set content element as focusable
+		manager.contentElement.setAttribute( 'tabindex', 0 );
 		
 		// Try get open/close animation classes from attributes
 		var openAnimationAttrValue = manager.element.getAttribute( manager.settings.openAnimationClassAttribute );
@@ -484,6 +489,33 @@
 		// Set flyout content `role` attribute from data attributes
 		var roleAttrValue = manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alert' || manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alertdialog' ? 'alertdialog' : 'dialog';
 		manager.contentElement.setAttribute( 'role', roleAttrValue );
+
+		// Set flyout accessible name
+		var ariaLabelValue = manager.element.getAttribute( 'aria-label' );
+		var ariaLabelledbyValue = manager.element.getAttribute( 'aria-labelledby' );
+		if ( ( ! ariaLabelValue || ariaLabelValue == '' ) && ( ! ariaLabelledbyValue || ariaLabelledbyValue == '' ) ) {
+			var firstHeading = manager.contentElement.querySelector( manager.settings.headingsSelector );
+			
+			// Set `aria-labelled` If a heading element exists inside the flyout content element
+			if ( firstHeading ) {
+				var headingId = firstHeading.id != undefined && firstHeading.id != '' ? firstHeading.id : manager.element.id + '-heading';
+				firstHeading.id = headingId;
+				manager.contentElement.setAttribute( 'aria-labelledby', headingId );
+			}
+		}
+
+		// Set flyout accessible description
+		var ariaDescribedbyValue = manager.element.getAttribute( 'aria-describedby' );
+		if ( ! ariaDescribedbyValue || ariaDescribedbyValue == '' ) {
+			var descriptionElement = manager.contentElement.querySelector( '[' + manager.settings.descriptionAttribute + ']' );
+			
+			// If a description element exists inside the flyout content element
+			if ( descriptionElement ) {
+				var descriptionId = descriptionElement.id != undefined && descriptionElement.id != '' ? descriptionElement.id : manager.element.id + '-description';
+				descriptionElement.id = descriptionId;
+				manager.contentElement.setAttribute( 'aria-describedby', descriptionId );
+			}
+		}
 		
 		// Set element as activated
 		manager.isActivated = true;
