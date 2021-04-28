@@ -6,9 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added: Support for flyout block accessible description generated from an element marked with `data-flyout-description`.
+- Added: Support for flyout block accessible name generated from the first found heading element.
+- Added: Support for keyboard events on non-button trigger elements.
+- Added: Make all siblings of the flyout blocks as `inert` during the time it is open. Letting users focus only on elements inside the currently displayed flyout block.
+- Added: Add `inert` polyfill, see more information at the [Inert polyfill repository](https://github.com/WICG/inert).
+- Added: Set focus to the first focusable element in the flyout content by default, or to the element marked as `data-autofocus` if focusabled, and allow developers to define a manual focus mode with `data-flyout-manual-focus`, otherwise focus on the flyout content.
+- Added: Add attribute `role` to the flyout block element to `dialog` or `alertdialog` with support to set the value via `data-flyout-role`.
+- Added: Add support to the attribute `hidden` on flyout block elements to hide content for when JavaScript and CSS is unavailable.
+- Added: Support to target flyout blocks using the `href` of a link attribute.
+- Added: Set trigger elements `role` to `button`.
+- Added: Support to release `disabled` and `aria-hidden` on trigger elements at initialization.
+- Added: Set focus back to the element that had the focus previously to opening the flyout block.
+
+### Fixed
+
+- Fixed: Only set flyout styles after initializing the script and setting the a class to the `body` element.
+
 ### Removed
 
-- Remove unnecessary dependency `hammerjs`
+- Removed: unnecessary dependency `hammerjs`.
 
 ## [1.0.0] - 2021-04-02
 

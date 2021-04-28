@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
 	<title>Flyout Block Test</title>
 
@@ -8,6 +8,7 @@
 	<link rel='stylesheet' id='flyout-block' href='dist/flyout-block.min.css' type='text/css' media='all' />
 	<link rel='stylesheet' id='flyout-animations' href='dist/flyout-animations.min.css' type='text/css' media='all' />
 	<script type="text/javascript" src="dist/animate-helper.min.js"></script>
+	<script type="text/javascript" src="dist/inert.min.js"></script>
 	<script type="text/javascript" src="dist/flyout-block.min.js"></script>
 	
 	<script type="text/javascript">
@@ -46,12 +47,24 @@
 			margin-bottom: 30px;
 		}
 
-		[data-flyout-content] {
+		.has-flyout [data-flyout-content] {
 			background-color: #00c49a;
 		}
 
-		[data-flyout-close] {
+		.has-flyout [data-flyout-close] {
 			margin: 10px;
+		}
+
+		.form {
+			margin: 0 10px;
+		}
+
+		.form input {
+			margin: 10px 0;
+		}
+		
+		.form input[type="text"] {
+			width: 300px;
 		}
 
 	</style>
@@ -67,9 +80,7 @@
 
 	<div data-flyout data-flyout-from-bottom>
 		<div data-flyout-content>
-
-			<button data-flyout-close>Close</button>
-
+			
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -79,6 +90,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+			
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -87,12 +100,10 @@
 
 	<h2>Flyout Block -- modal (displays as a modal window on large screens)</h2>
 
-	<button data-flyout-toggle data-flyout-target="[data-flyout-with-modal]">Show</button>
+	<button data-flyout-toggle data-flyout-target="[data-flyout-modal-1]">Show</button>
 
-	<div data-flyout data-flyout-modal data-flyout-with-modal>
+	<div data-flyout data-flyout-modal data-flyout-modal-1>
 		<div data-flyout-content>
-
-			<button data-flyout-close>Close</button>
 
 			<nav>
 				<ul>
@@ -104,19 +115,95 @@
 				</ul>
 			</nav>
 
+			<button data-flyout-close>Close</button>
+
 		</div>
 	</div>
 
 	<hr/>
 
-	<h2>Flyout Block -- from top</h2>
+	<h2>Flyout Block -- modal (trigger initially disabled, focus on first focusable field)</h2>
+
+	<button data-flyout-toggle data-flyout-target="[data-flyout-modal-2]" disabled aria-hidden="true">Initialy Disabled</button>
+
+	<div data-flyout data-flyout-modal data-flyout-modal-2>
+		<div data-flyout-content>
+
+			The first focusable field should get focused.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" /><br>
+			</div>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+			<button data-flyout-close>Close</button>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- modal (manual focus)</h2>
+
+	<a href="#open-modal" data-flyout-toggle data-flyout-target="[data-flyout-modal-3]" disabled aria-hidden="true">Link trigger</a>
+	<a href="#modal-3" data-flyout-toggle disabled aria-hidden="true">Link trigger (href)</a>
+
+	<div id="modal-3" data-flyout data-flyout-modal data-flyout-modal-3 data-flyout-role="alert" data-flyout-manual-focus hidden>
+		<div data-flyout-content>
+
+			No focus should be set in this flyout block.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" /><br>
+			</div>
+
+			<nav>
+				<ul>
+					<li>Menu item 1</li>
+					<li>Menu item 2</li>
+					<li>Menu item 3</li>
+					<li>Menu item 4</li>
+					<li>Menu item 5</li>
+				</ul>
+			</nav>
+
+			<a href="#close-modal" data-flyout-close>Close</a>
+
+		</div>
+	</div>
+
+	<hr/>
+
+	<h2>Flyout Block -- from top (auto focus on second field)</h2>
 
 	<button data-flyout-toggle data-flyout-target="[data-flyout-from-top]">Show</button>
 
 	<div data-flyout data-flyout-from-top data-flyout-open-animation-class="slide-in-down" data-flyout-close-animation-class="slide-out-up">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
+			The second focusable field should get focus, as it has the attribute `data-autofocus`.
+
+			<div class="form">
+				<input type="hidden" name="_hidden_field" placeholder="Should not appear" /><br>
+				<input type="text" name="_disabled_field" placeholder="This field is disabled" disabled /><br>
+				<input type="text" name="_first_focusable_field" placeholder="This is the first focusable field" /><br>
+				<input type="button" name="_second_focusable_field" value="This is the second focusable field" data-autofocus /><br>
+			</div>
 
 			<nav>
 				<ul>
@@ -127,20 +214,23 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
 
 	<hr/>
 
-	<h2>Flyout Block -- from left</h2>
+	<h2>Flyout Block -- from left (First heading as label, with description element marked with `data-flyout-description`)</h2>
 
 	<button data-flyout-toggle data-flyout-target="[data-flyout-from-left]">Show</button>
 
-	<div data-flyout data-flyout-from-left data-flyout-open-animation-class="slide-in-left" data-flyout-close-animation-class="slide-out-left">
+	<div data-flyout data-flyout-modal data-flyout-from-left data-flyout-open-animation-class="slide-in-left" data-flyout-close-animation-class="slide-out-left">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
+			<h2>This is the title of the flyout block</h2>
+			<p data-flyout-description>This paragraph will describe the flyout block.</p>
 
 			<nav>
 				<ul>
@@ -151,6 +241,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -164,8 +256,6 @@
 	<div data-flyout data-flyout-from-right data-flyout-open-animation-class="slide-in-right" data-flyout-close-animation-class="slide-out-right">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -175,6 +265,9 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -188,8 +281,6 @@
 	<div data-flyout data-flyout-fade data-flyout-open-animation-class="fade-in" data-flyout-close-animation-class="fade-out">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -199,6 +290,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -212,8 +305,6 @@
 	<div data-flyout data-flyout-fade-bottom data-flyout-open-animation-class="fade-in-up" data-flyout-close-animation-class="fade-out-down">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -223,6 +314,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -236,8 +329,6 @@
 	<div data-flyout data-flyout-fade-top data-flyout-open-animation-class="fade-in-down" data-flyout-close-animation-class="fade-out-up">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -247,6 +338,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -260,8 +353,6 @@
 	<div data-flyout data-flyout-fade-left data-flyout-open-animation-class="fade-in-left" data-flyout-close-animation-class="fade-out-left">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -271,6 +362,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>
@@ -284,8 +377,6 @@
 	<div data-flyout data-flyout-fade-right data-flyout-open-animation-class="fade-in-right" data-flyout-close-animation-class="fade-out-right">
 		<div data-flyout-content>
 
-			<button data-flyout-close>Close</button>
-
 			<nav>
 				<ul>
 					<li>Menu item 1</li>
@@ -295,6 +386,8 @@
 					<li>Menu item 5</li>
 				</ul>
 			</nav>
+
+			<button data-flyout-close>Close</button>
 
 		</div>
 	</div>

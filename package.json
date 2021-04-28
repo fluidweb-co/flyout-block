@@ -37,6 +37,7 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
-    "animate-helper": "^1.0.0"
+    "animate-helper": "^1.0.0",
+    "wicg-inert": "^3.1.1"
   }
 }

@@ -10,7 +10,7 @@ Lightweight modal and flyout block component library.
 
 ## Installation
 
-Setting up is pretty straight-forward. Download the js and css files from __dist__ folder and include them in your HTML, you'll also need the library [AnimateHelper](https://github.com/fluidweb-co/animate-helper).
+Setting up is pretty straight-forward. Download the js and css files from __dist__ folder and include them in your HTML, you'll also need the library [AnimateHelper](https://github.com/fluidweb-co/animate-helper), and the [Inert Polyfill](https://github.com/WICG/inert), both provided in the `dist` folder for your convenience.
 
 
 ```html
@@ -18,10 +18,12 @@ Setting up is pretty straight-forward. Download the js and css files from __dist
     <link rel='stylesheet' id='flyout-animations' href='path/to/dist/flyout-animations.min.css' type='text/css' media='all' />
 
     <script type="text/javascript" src="path/to/dist/animate-helper.min.js"></script>
+    <script type="text/javascript" src="path/to/dist/inert.min.js"></script>
     <script type="text/javascript" src="path/to/dist/flyout-block.min.js"></script>
 ```
 
-If you plan to use your own css animations you can skip loading the styles `flyout-animations.min.css`.
+Remember to change the `path/to/dist/` to the actual path in your project.
+If you plan to use your own css animations you can skip loading the styles `flyout-animations.min.css`, if no animation is provided the flyout scripts will still work as intended without animations ;)
 
 
 ### NPM
@@ -129,6 +131,10 @@ In the example below, we use the attribute `data-flyout-mobile-menu` to identify
     </div>
 </div>
 ```
+
+IMPORTANT: It is recommended that all flyout-blocks are placed directly in the `<body>` element to ensure that only the elements inside the flyout-block are focusabled during the time it is being displayed, this will prevent users using keyboard-only or assistive technologies from leaving the flyout-block without closing it, this is the expected behavior as leaving focusing and navigating other elements that are not currently being displayed will degrade the user experience. For that reason, the flyout script will set all sibling elements as `inert`.
+
+[Read the `inert` specs](https://whatpr.org/html/4288/interaction.html#the-inert-attribute)
 
 ### 2. Using flyout blocks as modals
 
