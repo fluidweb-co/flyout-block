@@ -427,9 +427,9 @@
 
 
 	/**
-	 * Initialize a trigger elements.
+	 * Initialize a trigger element.
 	 */
-	 _publicMethods.initializeTrigger = function( trigger ) {
+	_publicMethods.initializeTrigger = function( trigger ) {
 		// Enable the trigger element
 		trigger.removeAttribute( 'disabled' );
 		trigger.removeAttribute( 'aria-hidden' );
@@ -438,14 +438,16 @@
 		trigger.setAttribute( 'tabindex', '0' );
 
 		// Set trigger role to `button`
-		trigger.setAttribute( 'role', 'button' );
+		if ( trigger.tagName.toUpperCase() != 'BUTTON' ) {
+			trigger.setAttribute( 'role', 'button' );
+		}
 
 		// Maybe remove the `href` attribute to avoid right-click to open link on new tab
 		var triggerHref = trigger.getAttribute( 'href' );
 		if ( triggerHref != undefined && triggerHref != '' ) {
 			
 			// Move selector to the target attribute
-			var targetElement = document.querySelector( triggerHref )
+			var targetElement = triggerHref && triggerHref != '#' && triggerHref != '' ? document.querySelector( triggerHref ) : undefined;
 			if ( targetElement ) {
 				trigger.setAttribute( _settings.targetElementAttribute, triggerHref );
 			}
@@ -530,7 +532,7 @@
 	/**
 	 * Finish Initialize
 	 */
-	 var finishInit = function( options ) {
+	var finishInit = function( options ) {
 		// Merge with general settings with options
 		_settings = extend( _defaults, options );
 
