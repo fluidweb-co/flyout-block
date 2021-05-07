@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Changed: Default focus to the flyout content instead of the first focusable element. Use the attribute `data-autofocus` on the flyout element to focus on the first focusable element.
+- Changed: Default open/close animations to use `fade-in-up` and `fade-out-down`.
+
+### Fixed
+
+- Fixed: `fade-out-down` animation as moving up instead of down.
+
 ## [1.1.0] - 2021-04-28
 
 ### Added

@@ -55,30 +55,38 @@ These are the currently accepted options with their default values, if in doubt 
 ```js
     var _defaults = {
         flyoutWrapperSelector: '[data-flyout]',
-        flyoutElementSelector: '[data-flyout-content]',
-        toggleButtonSelector: '[data-flyout-toggle]',
-        openButtonSelector: '[data-flyout-open]',
-        closeButtonSelector: '[data-flyout-close]',
-        overlaySelector: '[data-flyout-overlay]',
-        flyoutTogglePassActionSelector: '[data-flyout-pass-action], .js-flyout-pass-action',
+		flyoutContentSelector: '[data-flyout-content]',
+		toggleButtonSelector: '[data-flyout-toggle]',
+		openButtonSelector: '[data-flyout-open]',
+		closeButtonSelector: '[data-flyout-close]',
+		overlaySelector: '[data-flyout-overlay]',
+		flyoutTogglePassActionSelector: '[data-flyout-pass-action], .js-flyout-pass-action',
+		autoFocusSelector: '[data-autofocus]',
 
-        flyoutToggleClassSelector: '.js-flyout-toggle',
-        flyoutClassTogglePrefix: 'js-flyout-target-',
-        
-        idPrefix: 'flyout-block',
-        
-        bodyHasFlyoutClass: 'has-flyout',
-        bodyHasFlyoutOpenClass: 'has-flyout--open',
-        isActivatedClass: 'is-activated',
-        isOpenClass: 'is-open',
-        openAnimationClass: 'slide-in-up',
-        closeAnimationClass: 'slide-out-down',
-        
-        targetElementAttribute: 'data-flyout-target',
-        openAnimationClassAttribute: 'data-flyout-open-animation-class',
-        closeAnimationClassAttribute: 'data-flyout-close-animation-class',
+		flyoutToggleClassSelector: '.js-flyout-toggle',
+		flyoutClassTogglePrefix: 'js-flyout-target-',
+		
+		idPrefix: 'flyout-block',
+		headingsSelector: 'h1, h2, h3, h4, h5, h6, [role="heading"]',
+		
+		bodyHasFlyoutClass: 'has-flyout',
+		bodyHasFlyoutOpenClass: 'has-flyout--open',
+		isActivatedClass: 'is-activated',
+		isOpenClass: 'is-open',
+		openAnimationClass: 'fade-in-up',
+		closeAnimationClass: 'fade-out-down',
+		
+		targetElementAttribute: 'data-flyout-target',
+		openAnimationClassAttribute: 'data-flyout-open-animation-class',
+		closeAnimationClassAttribute: 'data-flyout-close-animation-class',
+		manualFocusAttribute: 'data-flyout-manual-focus',
+		descriptionAttribute: 'data-flyout-description',
+		autoFocusAttribute: 'data-autofocus',
+		focusableElementsSelector: 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), details, summary, iframe, object, embed, [contenteditable] [tabindex]:not([tabindex="-1"])',
+		
+		flyoutRoleAttribute: 'data-flyout-role',
 
-        overlayTemplate: '<div class="flyout-overlay" data-flyout-overlay></div>',
+		overlayTemplate: '<div class="flyout-overlay" data-flyout-overlay></div>',
     };
 ```
 

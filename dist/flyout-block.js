@@ -28,6 +28,7 @@
 		closeButtonSelector: '[data-flyout-close]',
 		overlaySelector: '[data-flyout-overlay]',
 		flyoutTogglePassActionSelector: '[data-flyout-pass-action], .js-flyout-pass-action',
+		autoFocusSelector: '[data-autofocus]',
 
 		flyoutToggleClassSelector: '.js-flyout-toggle',
 		flyoutClassTogglePrefix: 'js-flyout-target-',
@@ -39,8 +40,8 @@
 		bodyHasFlyoutOpenClass: 'has-flyout--open',
 		isActivatedClass: 'is-activated',
 		isOpenClass: 'is-open',
-		openAnimationClass: 'slide-in-up',
-		closeAnimationClass: 'slide-out-down',
+		openAnimationClass: 'fade-in-up',
+		closeAnimationClass: 'fade-out-down',
 		
 		targetElementAttribute: 'data-flyout-target',
 		openAnimationClassAttribute: 'data-flyout-open-animation-class',
@@ -298,27 +299,28 @@
 			manager.element.classList.add( manager.settings.isOpenClass );
 			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass,manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
 
-			// Maybe set focus to the first focusable element in the flyout content, filter out the close button
+			// Maybe skip setting focus
 			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
-				var autofocusField = manager.element.querySelector( '[' + manager.settings.autoFocusAttribute + ']' );
-
-				// Maybe get first focusable field
-				if ( ! autofocusField ) {
+				// Set focus element as the dialog itself
+				var focusElement = manager.contentElement;
+				
+				// Maybe set focus to child element marked as auto-focus
+				var autofocusChild = manager.element.querySelector( manager.settings.autoFocusSelector );
+				if ( autofocusChild ) {
+					focusElement = autofocusChild;
+				}
+				// Maybe set focus to first focusable element
+				else if ( manager.element.matches( manager.settings.autoFocusSelector ) ) {
 					var focusableElements = Array.from( getFocusableElements( manager.element ) );
 					focusableElements = focusableElements.filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
+
 					if ( focusableElements.length > 0 ) {
-						autofocusField = focusableElements[0];
+						focusElement = focusableElements[0];
 					}
 				}
 
-				// Maybe set focus to the field
-				if ( autofocusField ) {
-					autofocusField.focus();
-				}
-				// Otherwise set focus to the flyout content
-				else {
-					manager.contentElement.focus();
-				}
+				// Set focus
+				focusElement.focus();
 			}
 
 			// Make all other elements `inert`
@@ -427,9 +429,9 @@
 
 
 	/**
-	 * Initialize a trigger elements.
+	 * Initialize a trigger element.
 	 */
-	 _publicMethods.initializeTrigger = function( trigger ) {
+	_publicMethods.initializeTrigger = function( trigger ) {
 		// Enable the trigger element
 		trigger.removeAttribute( 'disabled' );
 		trigger.removeAttribute( 'aria-hidden' );
@@ -438,14 +440,16 @@
 		trigger.setAttribute( 'tabindex', '0' );
 
 		// Set trigger role to `button`
-		trigger.setAttribute( 'role', 'button' );
+		if ( trigger.tagName.toUpperCase() != 'BUTTON' ) {
+			trigger.setAttribute( 'role', 'button' );
+		}
 
 		// Maybe remove the `href` attribute to avoid right-click to open link on new tab
 		var triggerHref = trigger.getAttribute( 'href' );
 		if ( triggerHref != undefined && triggerHref != '' ) {
 			
 			// Move selector to the target attribute
-			var targetElement = document.querySelector( triggerHref )
+			var targetElement = triggerHref && triggerHref != '#' && triggerHref != '' ? document.querySelector( triggerHref ) : undefined;
 			if ( targetElement ) {
 				trigger.setAttribute( _settings.targetElementAttribute, triggerHref );
 			}
@@ -530,7 +534,7 @@
 	/**
 	 * Finish Initialize
 	 */
-	 var finishInit = function( options ) {
+	var finishInit = function( options ) {
 		// Merge with general settings with options
 		_settings = extend( _defaults, options );
 
