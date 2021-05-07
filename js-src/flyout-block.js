@@ -299,8 +299,9 @@
 			manager.element.classList.add( manager.settings.isOpenClass );
 			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass,manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
 
-			// Maybe set focus to the first focusable element in the flyout content, filter out the close button
+			// Maybe skip setting focus
 			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
+				// Set focus element as the dialog itself
 				var focusElement = manager.contentElement;
 				
 				// Maybe set focus to child element marked as auto-focus
