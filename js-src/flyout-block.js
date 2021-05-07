@@ -28,6 +28,7 @@
 		closeButtonSelector: '[data-flyout-close]',
 		overlaySelector: '[data-flyout-overlay]',
 		flyoutTogglePassActionSelector: '[data-flyout-pass-action], .js-flyout-pass-action',
+		autoFocusSelector: '[data-autofocus]',
 
 		flyoutToggleClassSelector: '.js-flyout-toggle',
 		flyoutClassTogglePrefix: 'js-flyout-target-',
@@ -300,24 +301,26 @@
 
 			// Maybe set focus to the first focusable element in the flyout content, filter out the close button
 			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
-				var autofocusField = manager.element.querySelector( '[' + manager.settings.autoFocusAttribute + ']' );
-
-				// Maybe get first focusable field
-				if ( ! autofocusField ) {
+				var focusElement = manager.contentElement;
+				
+				// Maybe set focus to child element marked as auto-focus
+				var autofocusChild = manager.element.querySelector( manager.settings.autoFocusSelector );
+				if ( autofocusChild ) {
+					focusElement = autofocusChild;
+				}
+				// Maybe set focus to first focusable element
+				else if ( manager.element.matches( manager.settings.autoFocusSelector ) ) {
 					var focusableElements = Array.from( getFocusableElements( manager.element ) );
 					focusableElements = focusableElements.filter( function( maybeFocusable ) { return ! maybeFocusable.matches( manager.settings.closeButtonSelector ); } );
+
 					if ( focusableElements.length > 0 ) {
-						autofocusField = focusableElements[0];
+						focusElement = focusableElements[0];
 					}
 				}
 
 				// Maybe set focus to the field
-				if ( autofocusField ) {
-					autofocusField.focus();
-				}
-				// Otherwise set focus to the flyout content
-				else {
-					manager.contentElement.focus();
+				if ( focusElement ) {
+					focusElement.focus();
 				}
 			}
 
