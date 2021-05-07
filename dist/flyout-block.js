@@ -318,10 +318,8 @@
 					}
 				}
 
-				// Maybe set focus to the field
-				if ( focusElement ) {
-					focusElement.focus();
-				}
+				// Set focus
+				focusElement.focus();
 			}
 
 			// Make all other elements `inert`
