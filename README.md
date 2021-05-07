@@ -73,8 +73,8 @@ These are the currently accepted options with their default values, if in doubt 
 		bodyHasFlyoutOpenClass: 'has-flyout--open',
 		isActivatedClass: 'is-activated',
 		isOpenClass: 'is-open',
-		openAnimationClass: 'slide-in-up',
-		closeAnimationClass: 'slide-out-down',
+		openAnimationClass: 'fade-in-up',
+		closeAnimationClass: 'fade-out-down',
 		
 		targetElementAttribute: 'data-flyout-target',
 		openAnimationClassAttribute: 'data-flyout-open-animation-class',

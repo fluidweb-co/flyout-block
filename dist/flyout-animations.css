@@ -308,7 +308,7 @@
     transform: translate3d(0, 0, 0); }
   to {
     opacity: 0;
-    transform: translate3d(0, -10%, 0); } }
+    transform: translate3d(0, 10%, 0); } }
 
 @keyframes fade-out-down {
   from {
@@ -316,7 +316,7 @@
     transform: translate3d(0, 0, 0); }
   to {
     opacity: 0;
-    transform: translate3d(0, -10%, 0); } }
+    transform: translate3d(0, 10%, 0); } }
 
 .fade-out-left {
   -webkit-animation: fade-out-left 0.3s ease;

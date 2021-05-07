@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Changed: Default focus to the flyout content instead of the first focusable element. Use the attribute `data-autofocus` on the flyout element to focus on the first focusable element.
+- Changed: Default open/close animations to use `fade-in-up` and `fade-out-down`.
+
+### Fixed
+
+- Fixed: `fade-out-down` animation as moving up instead of down.
 
 ## [1.1.0] - 2021-04-28
 
