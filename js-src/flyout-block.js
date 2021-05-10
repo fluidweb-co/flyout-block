@@ -448,7 +448,7 @@
 		var triggerHref = trigger.getAttribute( 'href' );
 		if ( triggerHref != undefined && triggerHref != '' && triggerHref != '#' && triggerHref.indexOf( '#' ) == 0 ) {
 			// Move selector to the target attribute
-			var targetElement = triggerHref && triggerHref != '#' ? document.querySelector( triggerHref ) : undefined;
+			var targetElement = document.querySelector( triggerHref );
 			if ( targetElement ) {
 				trigger.setAttribute( _settings.targetElementAttribute, triggerHref );
 			}
