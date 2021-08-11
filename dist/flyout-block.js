@@ -297,7 +297,11 @@
 
 			// Set classes
 			manager.element.classList.add( manager.settings.isOpenClass );
-			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass,manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+			document.body.classList.add( manager.settings.bodyHasFlyoutOpenClass, manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+
+			// Set flyout content `role` attribute from data attributes
+			var roleAttrValue = manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alert' || manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alertdialog' ? 'alertdialog' : 'dialog';
+			manager.contentElement.setAttribute( 'role', roleAttrValue );
 
 			// Maybe skip setting focus
 			if ( ! manager.element.hasAttribute( manager.settings.manualFocusAttribute ) ) {
@@ -346,6 +350,9 @@
 			// Remove classes
 			manager.element.classList.remove( manager.settings.isOpenClass );
 			document.body.classList.remove( manager.settings.bodyHasFlyoutOpenClass + '-' + manager.element.id );
+
+			// Remove flyout content `role` attribute
+			manager.contentElement.removeAttribute( 'role' );
 
 			// Maybe set `hidden` attribute again
 			if ( manager.wasHidden ) {
@@ -487,10 +494,6 @@
 		var closeAnimationAttrValue = manager.element.getAttribute( manager.settings.closeAnimationClassAttribute );
 		manager.settings.openAnimationClass = openAnimationAttrValue && openAnimationAttrValue != '' ? openAnimationAttrValue : _settings.openAnimationClass;
 		manager.settings.closeAnimationClass = closeAnimationAttrValue && closeAnimationAttrValue != '' ? closeAnimationAttrValue : _settings.closeAnimationClass;
-
-		// Set flyout content `role` attribute from data attributes
-		var roleAttrValue = manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alert' || manager.element.getAttribute( manager.settings.flyoutRoleAttribute ) == 'alertdialog' ? 'alertdialog' : 'dialog';
-		manager.contentElement.setAttribute( 'role', roleAttrValue );
 
 		// Set flyout accessible name
 		var ariaLabelValue = manager.element.getAttribute( 'aria-label' );
