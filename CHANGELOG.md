@@ -8,13 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Fixed: only set flyout-block content element `role` attribute when opening it, instead of setting at initialization.
+- Fixed: Only set flyout-block content element `role` attribute when opening it, instead of setting at initialization.
+- Fixed: Set all sibling elements up the flyout-block element tree as `inert`, instead of just the elements siblings.
 
 ## [1.1.2] - 2021-05-10
 
 ### Fixed
 
-- Fixed: critical error when initializing a flyout-block trigger which contained a `href` attribute that didn't point to an element in the page.
+- Fixed: Critical error when initializing a flyout-block trigger which contained a `href` attribute that didn't point to an element in the page.
 
 ## [1.1.1] - 2021-05-07
 

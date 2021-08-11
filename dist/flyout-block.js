@@ -3,7 +3,7 @@
  * 
  * File flyout-block.js.
  */
-(function (root, factory) {
+ (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		define([], factory(root));
 	} else if ( typeof exports === 'object' ) {
@@ -244,8 +244,8 @@
 	/**
 	 * Set the `inert` property of the sibling elements.
 	 *
-	 * @param   HTMLElement  element  The element which to maintain the focus in, all siblings will marked with the value of the param `inert` except this one.
-	 * @param   bool         inert    Boolean value to set to the `inert` property, `true` will make siblings inert, `false` will release the siblings.
+	 * @param   HTMLElement  element  The element which to maintain the focus in, all siblings will be marked with the value of the param `inert` except this one.
+	 * @param   bool         inert    Boolean value to set to the `inert` property, `true` will make siblings inert, `false` will release the inert state.
 	 */
 	var setSiblingsInert = function( element, inert ) {
 		// Release all elements in case of an invalid value for the `inert` param.
@@ -257,6 +257,22 @@
 			Array.from( siblings ).forEach( function( child ) {
 				if ( child != element ) { child.inert = inert; }
 			} );
+		}
+	}
+
+
+	/**
+	 * Set all sibling elements on the passed element's tree with `inert` property.
+	 *
+	 * @param   HTMLElement  element  The element which to maintain the focus in, all siblings up the element's tree will be marked with the value of the param `inert` except this one.
+	 * @param   bool         inert    Boolean value to set to the `inert` property, `true` will make siblings inert, `false` will release the inert state.
+	 */
+	var setTreeSiblingsInert = function( element, inert ) {
+		var targetElement = element;
+		
+		while ( element.parentNode ) {
+			setSiblingsInert( targetElement, inert );
+			targetElement = targetElement.parentNode;
 		}
 	}
 
@@ -328,7 +344,7 @@
 			}
 
 			// Make all other elements `inert`
-			setSiblingsInert( manager.element, true );
+			setTreeSiblingsInert( manager.element, true );
 		} );
 	}
 
@@ -366,7 +382,7 @@
 			}
 
 			// Release all other elements, set `inert` to false
-			setSiblingsInert( manager.element, false );
+			setTreeSiblingsInert( manager.element, false );
 
 			// Set focus back to the element previously with focus
 			if ( manager.previousActiveElement ) {
