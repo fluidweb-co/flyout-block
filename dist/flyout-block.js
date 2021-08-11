@@ -3,7 +3,7 @@
  * 
  * File flyout-block.js.
  */
- (function (root, factory) {
+(function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		define([], factory(root));
 	} else if ( typeof exports === 'object' ) {
